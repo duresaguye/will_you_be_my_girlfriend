@@ -7,11 +7,32 @@ yesBtn.addEventListener('click', function() {
     window.location.href = 'yes.html';
 });
 
+// Event listeners for desktop mouse events
+document.addEventListener('mousemove', handleMove);
 
+// Event listeners for smartphone touch events
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
 
-document.addEventListener('mousemove', (e) => {
+function handleMove(e) {
     const x = e.pageX;
     const y = e.pageY;
+    moveButton(x, y);
+}
+
+function handleTouchStart(e) {
+    const x = e.touches[0].pageX;
+    const y = e.touches[0].pageY;
+    moveButton(x, y);
+}
+
+function handleTouchMove(e) {
+    const x = e.touches[0].pageX;
+    const y = e.touches[0].pageY;
+    moveButton(x, y);
+}
+
+function moveButton(x, y) {
     const buttonBox = noBtn.getBoundingClientRect();
     const horizontalDistanceFrom = distanceFromCenter(buttonBox.x, x, buttonBox.width);
     const verticalDistanceFrom = distanceFromCenter(buttonBox.y, y, buttonBox.height);
@@ -23,7 +44,7 @@ document.addEventListener('mousemove', (e) => {
             buttonBox.y + verticalOffset / verticalDistanceFrom * 10
         );
     }
-});
+}
 
 function setButtonPosition(left, top) {
     const windowBox = document.body.getBoundingClientRect();
